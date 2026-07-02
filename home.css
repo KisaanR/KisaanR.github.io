@@ -68,7 +68,7 @@
   /* ===== NAVBAR ===== */
   .navbar {
     position:fixed; top:0; width:100%; z-index:100;
-    padding:16px 0;
+    padding:11px 0;
     background:rgba(6,13,24,0.75);
     backdrop-filter:blur(18px);
     border-bottom:1px solid var(--border2);
@@ -78,7 +78,7 @@
   .nav-container { max-width:1160px; margin:0 auto; padding:0 32px; display:flex; align-items:center; justify-content:space-between; }
   .logo { font-family:var(--ff-d); font-size:21px; font-weight:500; color:var(--white); text-decoration:none; display:inline-flex; align-items:center; }
   .logo span { color:var(--cyan); font-weight:300; }
-  .logo img { height:38px; width:auto; display:block; }
+  .logo img { height:48px; width:auto; display:block; }
   .nav-links a { position:relative; color:var(--muted); text-decoration:none; font-size:14px; font-weight:500; margin-right:26px; transition:color .2s; padding-bottom:6px; }
   .nav-links a:hover { color:var(--white); }
   .nav-links a::after { content:''; position:absolute; left:0; bottom:0; width:100%; height:2px; background:var(--cyan); border-radius:2px; transform:scaleX(0); transform-origin:left; transition:transform .3s cubic-bezier(.16,1,.3,1); }

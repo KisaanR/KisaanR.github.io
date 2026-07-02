@@ -84,7 +84,7 @@ body {
 .nav-container {
     max-width: 1160px;
     margin: 0 auto;
-    padding: 20px 32px;
+    padding: 15px 32px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -100,7 +100,7 @@ body {
     align-items: center;
 }
 .logo span { color: var(--text-muted); font-weight: 300; }
-.logo img { height: 38px; width: auto; display: block; }
+.logo img { height: 48px; width: auto; display: block; }
 
 .nav-links a {
     position: relative;
