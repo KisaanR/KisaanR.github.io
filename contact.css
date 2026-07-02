@@ -96,8 +96,11 @@ body {
     letter-spacing: -0.02em;
     color: var(--text-main);
     text-decoration: none;
+    display: inline-flex;
+    align-items: center;
 }
 .logo span { color: var(--text-muted); font-weight: 300; }
+.logo img { height: 38px; width: auto; display: block; }
 
 .nav-links a {
     position: relative;
