@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Research Index — Raka Solutions</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-base: #070a12;
+      --bg-surface: #0f172a;
+      --bg-surface-elevated: #1e293b;
+      --border-subtle: #1e293b;
+      --border-accent: #38bdf8;
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-navy: #0284c7;
+      --glow-navy: rgba(2, 132, 199, 0.12);
+      --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+      --sidebar-width: 280px;
+    }
+
+    body {
+      background-color: var(--bg-base);
+      background-image: 
+        radial-gradient(circle at 100% 0%, rgba(2, 132, 199, 0.05) 0%, transparent 40%),
+        radial-gradient(circle at 0% 100%, rgba(56, 189, 248, 0.03) 0%, transparent 40%);
+      color: var(--text-primary);
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── TOP NAVBAR (shared with homepage) ── */
+    .navbar {
+      position: fixed;
+      top: 0; left: 0; width: 100%;
+      z-index: 1000;
+      background: rgba(6, 10, 19, 0.75);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .nav-container {
+      max-width: 1160px; margin: 0 auto; padding: 20px 32px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo { font-size: 21px; font-weight: 700; color: var(--text-primary); text-decoration: none; }
+    .logo span { color: var(--border-accent); font-weight: 300; }
+    .nav-links a {
+      position: relative;
+      color: var(--text-secondary); text-decoration: none; font-size: 14px;
+      font-weight: 500; margin-right: 26px; transition: color .2s;
+      padding-bottom: 6px;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--text-primary); }
+    .nav-links a::after {
+      content: ''; position: absolute; left: 0; bottom: 0; width: 100%; height: 2px;
+      background: var(--border-accent); border-radius: 2px;
+      transform: scaleX(0); transform-origin: left;
+      transition: transform .3s cubic-bezier(.16,1,.3,1);
+    }
+    .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-links a.active::after { transform: scaleX(1); background: var(--text-primary); }
+    .btn-primary {
+      background: var(--accent-navy); color: #fff; text-decoration: none;
+      padding: 10px 20px; border-radius: 8px; font-size: 14px; font-weight: 600;
+      transition: background .2s;
+    }
+    .btn-primary:hover { background: #0369a1; }
+    @media (max-width: 768px) { .nav-links { display: none; } }
+
+    /* --- SOLUTIONS MEGA MENU --- */
+    .nav-item { position: relative; display: inline-flex; align-items: center; }
+
+    .nav-item::before {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 400px;
+      height: 22px;
+      z-index: 1001;
+    }
+
+    .mega-menu {
+      position: absolute;
+      top: calc(100% + 22px);
+      left: 0;
+      transform: translateY(8px);
+      width: 400px;
+      background: rgba(7, 10, 18, 0.98);
+      border: 1px solid var(--border-subtle);
+      border-radius: 18px;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(20px);
+      padding: 1.25rem;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+      z-index: 1002;
+    }
+
+    .nav-item:hover .mega-menu,
+    .nav-item:focus-within .mega-menu {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .mega-menu-grid { display: flex; flex-direction: column; gap: 0.35rem; }
+
+    .nav-links .mega-menu a { margin-right: 0; }
+    .nav-links .mega-menu a::after { display: none; }
+
+    .mega-menu-item {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      padding: 0.85rem;
+      min-height: 100px;
+      border-radius: 12px;
+      transition: background 0.2s ease;
+    }
+    .nav-links .mega-menu-item {
+      padding-bottom: 0.85rem;
+    }
+    .mega-menu-item:hover { background: var(--bg-surface-elevated); }
+
+    .mega-menu-icon {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 9px;
+    }
+
+    .mega-menu-text strong {
+      display: block;
+      color: var(--text-primary);
+      font-size: 0.92rem;
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+    .mega-menu-text span {
+      display: block;
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      line-height: 1.45;
+    }
+
+    .mega-menu-footer {
+      margin-top: 0.75rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .mega-menu-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--border-accent);
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      padding-bottom: 0;
+    }
+    .mega-menu-cta:hover { color: var(--text-primary); }
+
+    @media (max-width: 900px) { .mega-menu { display: none; } }
+
+    /* ── MAIN CONTENT WORKSPACE ── */
+    .app-workspace {
+      flex-grow: 1;
+      min-width: 0;
+      padding: 130px 3rem 2.5rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* ── LATEST ARTICLE SPOTLIGHT ── */
+    .spotlight-card {
+      background: linear-gradient(135deg, rgba(2,132,199,0.1), rgba(56,189,248,0.03));
+      border: 1px solid var(--border-accent);
+      border-radius: 16px;
+      padding: 2.5rem;
+      margin-bottom: 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .spotlight-eyebrow {
+      font-size: 0.7rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.1em; color: var(--border-accent); margin-bottom: 0.75rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .spotlight-card .card-title-link { font-size: 1.6rem; }
+    .spotlight-card .card-venue { margin-bottom: 1rem; }
+
+    /* Asymmetric Top Row Header Block */
+    .workspace-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 3rem;
+      gap: 2rem;
+    }
+    .view-title h2 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+    .view-title p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-top: 0.25rem;
+    }
+
+    /* Linear High-Tech Metrics Display */
+    .status-panel-grid {
+      display: flex;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .status-metric {
+      padding: 1.25rem 2.25rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      border-right: 1px solid var(--border-subtle);
+    }
+    .status-metric:last-child { border-right: none; }
+    .status-metric .lbl {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-secondary);
+      margin-bottom: 0.25rem;
+    }
+    .status-metric .val {
+      font-family: var(--font-mono);
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    /* ── FLOATING BRIDGE COMMAND CONTROL DECK ── */
+    .control-bridge {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 1rem 1.5rem;
+      margin-bottom: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .bridge-main-line {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .search-input-wrapper {
+      position: relative;
+      flex-grow: 1;
+      min-width: 300px;
+    }
+    .search-input-wrapper i {
+      position: absolute; left: 1.25rem; top: 50%; transform: translateY(-50%);
+      color: var(--border-accent); font-size: 0.85rem;
+    }
+    #search {
+      width: 100%; height: 46px;
+      padding: 0 1.25rem 0 2.75rem;
+      border: 1px solid var(--border-subtle); background: var(--bg-base);
+      font-size: 0.88rem; color: var(--text-primary);
+      border-radius: 8px; outline: none;
+      transition: border-color 0.2s;
+    }
+    #search:focus { border-color: var(--border-accent); }
+
+    .bridge-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    /* Premium Custom Select Triggers */
+    .select-dropdown-container { position: relative; }
+    .dropdown-trigger {
+      height: 46px; padding: 0 1.25rem;
+      border: 1px solid var(--border-subtle); background: var(--bg-base);
+      color: var(--text-secondary); font-size: 0.85rem; font-weight: 600;
+      border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 0.75rem;
+    }
+    .dropdown-trigger:hover, .dropdown-trigger.active { color: var(--text-primary); border-color: var(--border-accent); }
+    .dropdown-trigger i { transition: transform 0.2s; font-size: 0.75rem; }
+    .dropdown-trigger.open i { transform: rotate(180deg); }
+
+    .dropdown-flyout-list {
+      display: none; position: absolute; top: calc(100% + 6px); left: 0;
+      background: var(--bg-surface); border: 1px solid var(--border-subtle);
+      border-radius: 8px; min-width: 180px; z-index: 150;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5); padding: 0.35rem;
+    }
+    .dropdown-flyout-list.open { display: block; }
+    .flyout-item {
+      padding: 0.55rem 1rem; font-size: 0.85rem; color: var(--text-secondary);
+      border-radius: 6px; cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+    }
+    .flyout-item:hover { background: var(--bg-surface-elevated); color: var(--text-primary); }
+    .flyout-item.active { background: var(--accent-navy); color: white; }
+
+    /* Segmented Clean Channel Controls */
+    .channel-pills {
+      display: flex;
+      background: var(--bg-base);
+      padding: 4px;
+      border-radius: 8px;
+      border: 1px solid var(--border-subtle);
+    }
+    .pill-node {
+      border: none; background: transparent;
+      padding: 0.5rem 1.25rem; font-size: 0.8rem; font-weight: 600;
+      color: var(--text-secondary); cursor: pointer; border-radius: 6px;
+      transition: all 0.15s ease;
+    }
+    .pill-node:hover { color: var(--text-primary); }
+    .pill-node.active {
+      background: var(--bg-surface-elevated);
+      color: var(--text-primary);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    .sorting-wrapper select {
+      height: 46px; background: var(--bg-base); border: 1px solid var(--border-subtle);
+      border-radius: 8px; color: var(--text-primary); padding: 0 1rem; font-size: 0.85rem;
+      outline: none; cursor: pointer;
+    }
+
+    /* Sub-Line Flow Control Panel */
+    .bridge-personnel-line {
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      overflow-x: auto;
+    }
+    .flow-label {
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+      color: var(--text-secondary); letter-spacing: 0.05em; white-space: nowrap;
+    }
+    .personnel-tag {
+      background: var(--bg-base); border: 1px solid var(--border-subtle);
+      border-radius: 20px; color: var(--text-secondary); padding: 0.35rem 1rem;
+      font-size: 0.75rem; font-weight: 500; cursor: pointer; white-space: nowrap;
+    }
+    .personnel-tag:hover { border-color: var(--text-secondary); color: var(--text-primary); }
+    .personnel-tag.active {
+      background: var(--glow-navy); border-color: var(--border-accent); color: var(--border-accent);
+    }
+
+    /* ── CARD STRUCTURAL DISPLAY GRID ── */
+    #papers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+      gap: 1.75rem;
+    }
+
+    /* Asymmetric Premium Border Card Design */
+    .document-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 2.25rem;
+      display: flex; flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .document-card::before {
+      content: ''; position: absolute; left: 0; top: 0; width: 4px; height: 100%;
+      background: transparent; transition: background-color 0.2s;
+    }
+    .document-card:hover {
+      border-color: rgba(56, 189, 248, 0.25);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 30px var(--glow-navy);
+    }
+    .document-card:hover::before {
+      background-color: var(--border-accent);
+    }
+
+    .card-meta-bar {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 1.25rem;
+    }
+    .timeline-badge {
+      font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700;
+      color: var(--border-accent); background: rgba(56, 189, 248, 0.06);
+      padding: 2px 8px; border-radius: 4px;
+    }
+    .analyst-badge {
+      font-size: 0.65rem; text-transform: uppercase; font-weight: 700;
+      padding: 3px 10px; border-radius: 4px; background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border-subtle); color: var(--text-secondary);
+      letter-spacing: 0.05em;
+    }
+
+    .card-title-link {
+      font-size: 1.2rem; font-weight: 700; line-height: 1.45;
+      margin-bottom: 1rem; color: var(--text-primary); text-decoration: none;
+      display: inline-block;
+    }
+    .card-title-link:hover { color: var(--border-accent); }
+
+    .card-authors { font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 0.6rem; }
+    .card-venue { font-size: 0.82rem; color: var(--text-secondary); font-style: italic; opacity: 0.8; margin-bottom: 2rem; }
+
+    .card-footer-metrics {
+      margin-top: auto; padding-top: 1.25rem;
+      border-top: 1px solid var(--border-subtle);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .citation-count { font-size: 0.82rem; color: var(--text-secondary); }
+    .citation-count strong { color: var(--text-primary); font-family: var(--font-mono); font-size: 0.95rem; }
+
+    .action-button-trigger {
+      font-size: 0.75rem; color: var(--border-accent);
+      text-transform: uppercase; text-decoration: none; font-weight: 700;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      letter-spacing: 0.05em;
+    }
+    .action-button-trigger:hover { color: var(--text-primary); }
+
+    /* Dynamic UI State Placeholders */
+    .state-msg { grid-column: 1 / -1; text-align: center; padding: 8rem 2rem; color: var(--text-secondary); }
+    .state-msg i { font-size: 2.5rem; color: var(--accent-navy); margin-bottom: 1.25rem; display: block; }
+    
+    .loader { grid-column: 1 / -1; display: flex; justify-content: center; padding: 8rem; }
+    .trace-loader-line {
+      width: 60px; height: 4px; background: var(--border-subtle); position: relative; overflow: hidden; border-radius: 2px;
+    }
+    .trace-loader-line::after {
+      content: ''; display: block; width: 40%; height: 100%; background: var(--border-accent);
+      position: absolute; left: -40%; top: 0; animation: signal-trace 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+    @keyframes signal-trace { 0% { left: -40%; } 100% { left: 100%; } }
+
+    @media (max-width: 1100px) {
+      .app-workspace { padding: 120px 2rem 2rem; }
+      .workspace-header { flex-direction: column; align-items: fill; }
+    }
+    @media (max-width: 768px) {
+      .app-workspace { padding: 110px 1.5rem 1.5rem; }
+      .bridge-main-line { flex-direction: column; align-items: stretch; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="home.html" class="logo">Raka<span>Solutions</span></a>
+      <nav class="nav-links">
+        <a href="home.html">Home</a>
+        <a href="publications.html" class="active">Publications</a>
+        <div class="nav-item">
+          <a href="solutions.html">Solutions</a>
+          <div class="mega-menu">
+            <div class="mega-menu-grid">
+              <a class="mega-menu-item" href="solutions.html#chatbots">
+                <span class="mega-menu-icon"><i class="fa-solid fa-comment-dots"></i></span>
+                <span class="mega-menu-text">
+                  <strong>Custom AI Chatbots</strong>
+                  <span>Trained on your data, handling support around the clock.</span>
+                </span>
+              </a>
+              <a class="mega-menu-item" href="solutions.html#agents">
+                <span class="mega-menu-icon"><i class="fa-solid fa-diagram-project"></i></span>
+                <span class="mega-menu-text">
+                  <strong>Intelligent Workflow Agents</strong>
+                  <span>Automates the multi-step busywork behind the scenes.</span>
+                </span>
+              </a>
+              <a class="mega-menu-item" href="solutions.html#analysis">
+                <span class="mega-menu-icon"><i class="fa-solid fa-chart-line"></i></span>
+                <span class="mega-menu-text">
+                  <strong>Market & Operational Analytics</strong>
+                  <span>Turns raw data into reports you can act on.</span>
+                </span>
+              </a>
+              <a class="mega-menu-item" href="solutions.html#security">
+                <span class="mega-menu-icon"><i class="fa-solid fa-shield-halved"></i></span>
+                <span class="mega-menu-text">
+                  <strong>Trust & Security</strong>
+                  <span>Isolated deployments, audit logs, and compliance.</span>
+                </span>
+              </a>
+            </div>
+            <div class="mega-menu-footer">
+              <a href="solutions.html" class="mega-menu-cta">View all solutions →</a>
+            </div>
+          </div>
+        </div>
+        <a href="about.html">About Us</a>
+      </nav>
+      <a href="contact.html" class="btn-primary">Book a call</a>
+    </div>
+  </header>
+
+  <main class="app-workspace">
+
+    <header class="workspace-header">
+      <div class="view-title">
+        <h2>Research Portfolio</h2>
+        <p>Operational data mapping for indexed global academic publications.</p>
+      </div>
+      <div class="status-panel-grid">
+        <div class="status-metric">
+          <span class="lbl">Total Nodes</span>
+          <span class="val" id="total-count">—</span>
+        </div>
+        <div class="status-metric">
+          <span class="lbl">Aggregate Cites</span>
+          <span class="val" id="total-cites">—</span>
+        </div>
+        <div class="status-metric">
+          <span class="lbl">Active Analysts</span>
+          <span class="val" id="total-researchers">—</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="spotlight-card" id="spotlight" style="display:none;"></section>
+
+    <section class="control-bridge">
+      <div class="bridge-main-line">
+        <div class="search-input-wrapper">
+          <i class="fa-solid fa-terminal"></i>
+          <input type="search" id="search" placeholder="Query system database metrics..." autocomplete="off" />
+        </div>
+
+        <div class="bridge-actions">
+          <div class="select-dropdown-container">
+            <button class="dropdown-trigger" id="year-trigger">
+              <span id="year-label">Timeline Parameters</span>
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="dropdown-flyout-list" id="year-panel"></div>
+          </div>
+
+          <div class="channel-pills">
+            <button class="pill-node active" data-filter="all">All Logs</button>
+            <button class="pill-node" data-filter="cited">Highly Cited</button>
+            <button class="pill-node" data-filter="recent">Modern Tier</button>
+          </div>
+
+          <div class="sorting-wrapper">
+            <select id="sort">
+              <option value="cites">Citations (High-Low)</option>
+              <option value="date">Temporal Sequences</option>
+              <option value="alpha">Alphanumeric (A-Z)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="bridge-personnel-line">
+        <span class="flow-label">Filter Pipeline:</span>
+        <div id="researcher-row" style="display: flex; gap: 0.5rem; overflow-x: auto; width: 100%;"></div>
+      </div>
+    </section>
+
+    <section id="papers-grid">
+      <div class="loader"><div class="trace-loader-line"></div></div>
+    </section>
+
+  </main>
+
+  <script>
+  const SUPABASE_URL = 'https://zbhuljurcvwrhaorxusc.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_Usk6ADOtzJNAnbDkiPll8w_pzknKhj_';
+
+  const { createClient } = supabase;
+  const db = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  let allPapers = [], activeFilter = 'all', activeYear = null, activeResearcher = null, spotlightPaper = null;
+  const currentYear = new Date().getFullYear();
+
+  const yearTrigger = document.getElementById('year-trigger');
+  const yearPanel   = document.getElementById('year-panel');
+  
+  yearTrigger.addEventListener('click', e => {
+    e.stopPropagation();
+    yearTrigger.classList.toggle('open');
+    yearPanel.classList.toggle('open');
+  });
+  document.addEventListener('click', () => {
+    yearTrigger.classList.remove('open');
+    yearPanel.classList.remove('open');
+  });
+
+  async function fetchPapers() {
+    const { data, error } = await db.from('publications').select('*').order('year', { ascending: false });
+    if (error) { showEmpty('Database configuration layer missing or blocked.'); return; }
+    allPapers = data || [];
+    buildResearchers();
+    buildYearPanel();
+    updateStats();
+    renderSpotlight();
+    render();
+  }
+
+  function renderSpotlight() {
+    const el = document.getElementById('spotlight');
+    const latest = allPapers.find(p => p.year >= 2016);
+    spotlightPaper = latest || null;
+    if (!latest) { el.style.display = 'none'; return; }
+    el.style.display = 'block';
+    el.innerHTML = `
+      <div class="spotlight-eyebrow"><i class="fa-solid fa-bolt"></i> Latest Publication</div>
+      ${cardHTML(latest)}
+    `;
+  }
+
+  function getUniqueResearchers() {
+    return [...new Set(allPapers.map(p => p.researcher).filter(Boolean))].sort();
+  }
+
+  function buildResearchers() {
+    const row = document.getElementById('researcher-row');
+    row.innerHTML = '';
+    
+    const validModernCount = allPapers.filter(p => p.year >= 2016).length;
+    const allChip = mkRChip('', 'Global Logs', validModernCount, true);
+    allChip.addEventListener('click', () => setResearcher(null, allChip));
+    row.appendChild(allChip);
+
+    const names = getUniqueResearchers();
+    names.forEach(name => {
+      const count = allPapers.filter(p => p.researcher === name && p.year >= 2016).length;
+      if (count === 0) return; 
+      const chip = mkRChip(name, name, count, false);
+      chip.addEventListener('click', () => setResearcher(name, chip));
+      row.appendChild(chip);
+    });
+    
+    document.getElementById('total-researchers').textContent = names.length;
+  }
+
+  function mkRChip(researcher, label, count, isActive) {
+    const btn = document.createElement('button');
+    btn.className = 'personnel-tag' + (isActive ? ' active' : '');
+    btn.dataset.researcher = researcher;
+    btn.innerHTML = `${esc(label)} <span style="opacity:0.5; font-family:var(--font-mono); margin-left:4px;">(${count})</span>`;
+    return btn;
+  }
+
+  function setResearcher(name, chip) {
+    activeResearcher = name;
+    activeYear = null;
+    document.querySelectorAll('.personnel-tag').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    document.getElementById('year-label').textContent = 'Timeline Parameters';
+    yearTrigger.classList.remove('active');
+    buildYearPanel();
+    render();
+  }
+
+  function updateStats() {
+    const modernPapers = allPapers.filter(p => p.year >= 2016);
+    document.getElementById('total-count').textContent = modernPapers.length;
+    const tc = modernPapers.reduce((s,p) => s + (p.citations||0), 0);
+    document.getElementById('total-cites').textContent = tc >= 1000 ? (tc/1000).toFixed(1)+'k' : tc;
+  }
+
+  function buildYearPanel() {
+    const base = activeResearcher ? allPapers.filter(p => p.researcher === activeResearcher) : allPapers;
+    const years = [...new Set(base.map(p => p.year).filter(Boolean))].sort((a,b) => b-a);
+    yearPanel.innerHTML = '';
+
+    const allOpt = document.createElement('div');
+    allOpt.className = 'flyout-item' + (activeYear === null ? ' active' : '');
+    allOpt.innerHTML = '<span>All Timelines</span>';
+    allOpt.addEventListener('click', e => {
+      e.stopPropagation();
+      activeYear = null;
+      document.getElementById('year-label').textContent = 'Timeline Parameters';
+      yearTrigger.classList.remove('active', 'open');
+      yearPanel.classList.remove('open');
+      buildYearPanel(); render();
+    });
+    yearPanel.appendChild(allOpt);
+
+    years.forEach(yr => {
+      if (yr < 2016) return;
+      const cnt = base.filter(p => p.year === yr).length;
+      const opt = document.createElement('div');
+      opt.className = 'flyout-item' + (activeYear === yr ? ' active' : '');
+      opt.innerHTML = `<span>${yr}</span><span style="font-family:var(--font-mono); font-size:0.7rem; opacity:0.6;">(${cnt})</span>`;
+      opt.addEventListener('click', e => {
+        e.stopPropagation();
+        activeYear = yr;
+        document.getElementById('year-label').textContent = yr;
+        yearTrigger.classList.add('active');
+        yearTrigger.classList.remove('open');
+        yearPanel.classList.remove('open');
+        buildYearPanel(); render();
+      });
+      yearPanel.appendChild(opt);
+    });
+  }
+
+  function getFiltered() {
+    const q = document.getElementById('search').value.toLowerCase().trim();
+    const sort = document.getElementById('sort').value;
+    const cut = currentYear - 5;
+
+    let list = allPapers.filter(p => {
+      if (p === spotlightPaper) return false;
+      if (!p.year || p.year < 2016) return false;
+      if (activeResearcher && p.researcher !== activeResearcher) return false;
+      if (activeFilter === 'cited'  && !(p.citations > 0))  return false;
+      if (activeFilter === 'recent' && !(p.year >= cut))     return false;
+      if (activeYear && p.year !== activeYear)               return false;
+      if (q) {
+        const hay = [p.title, p.authors, p.venue, p.researcher].join(' ').toLowerCase();
+        if (!hay.includes(q)) return false;
+      }
+      return true;
+    });
+
+    if (sort === 'cites')      list.sort((a,b) => (b.citations||0) - (a.citations||0));
+    else if (sort === 'alpha') list.sort((a,b) => (a.title||'').localeCompare(b.title||''));
+    else                       list.sort((a,b) => (b.year||0) - (a.year||0));
+
+    return list;
+  }
+
+  function render() {
+    const grid = document.getElementById('papers-grid');
+    const papers = getFiltered();
+    
+    if (!papers.length) { showEmpty('No tracking parameters match query criteria.'); return; }
+    grid.innerHTML = papers.map(p => cardHTML(p)).join('');
+  }
+
+  function cardHTML(p) {
+    const venueHtml = p.venue ? `<div class="card-venue">${esc(p.venue)}</div>` : '';
+    const tagHtml = (!activeResearcher && p.researcher) ? `<span class="analyst-badge">${esc(p.researcher)}</span>` : '';
+    const linkHtml = p.scholar_url
+      ? `<a class="action-button-trigger" href="${esc(p.scholar_url)}" target="_blank" rel="noopener">Access Abstract <i class="fa-solid fa-arrow-up-right-from-square"></i></a>` : '';
+    const titleHtml = p.scholar_url
+      ? `<a class="card-title-link" href="${esc(p.scholar_url)}" target="_blank" rel="noopener">${esc(p.title||'Untitled Reference Node')}</a>`
+      : `<span class="card-title-link">${esc(p.title||'Untitled Reference Node')}</span>`;
+
+    return `<article class="document-card">
+      <div class="card-meta-bar">
+        <span class="timeline-badge">${p.year || 'N/A'}</span>
+        ${tagHtml}
+      </div>
+      ${titleHtml}
+      ${p.authors ? `<div class="card-authors">${esc(p.authors)}</div>` : ''}
+      ${venueHtml}
+      <div class="card-footer-metrics">
+        <div class="citation-count">
+          Citations: <strong>${p.citations||0}</strong>
+        </div>
+        ${linkHtml}
+      </div>
+    </article>`;
+  }
+
+  function showEmpty(msg) {
+    document.getElementById('papers-grid').innerHTML =
+      `<div class="state-msg"><i class="fa-solid fa-circle-exclamation"></i><p>${esc(msg)}</p></div>`;
+  }
+
+  function esc(s) {
+    if (!s) return '';
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  document.querySelectorAll('.pill-node').forEach(btn => {
+    btn.addEventListener('click', () => {
+      activeFilter = btn.dataset.filter;
+      document.querySelectorAll('.pill-node').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      render();
+    });
+  });
+
+  document.getElementById('search').addEventListener('input', render);
+  document.getElementById('sort').addEventListener('change', render);
+
+  fetchPapers();
+</script>
+</body>
+</html>

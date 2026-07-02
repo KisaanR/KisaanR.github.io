@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+
+# OS
+.DS_Store
+
+# Local Claude Code settings (personal, not part of the site)
+.claude/
+
+# Env files (in case scraper scripts ever get one)
+.env
+.env.local
+
+# Unused video assets (not referenced by any page) — kept locally,
+# excluded from the repo to keep it lightweight. Only pix4.mp4 is used
+# (about.html team-section background video).
+images/pix2.mp4
+images/pix3.mp4
+images/pix5.mp4
+images/pixel.mp4

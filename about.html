@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | RAKA Solutions</title>
+    <link rel="stylesheet" href="about.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <header class="navbar" id="navbar">
+      <div class="nav-container">
+        <a href="index.html" class="logo">Raka<span>Solutions</span></a>
+        <nav class="nav-links">
+          <a href="home.html">Homepage</a>
+          <a href="publications.html">Publications</a>
+          <div class="nav-item">
+            <a href="solutions.html">Solutions</a>
+            <div class="mega-menu">
+              <div class="mega-menu-grid">
+                <a class="mega-menu-item" href="solutions.html#chatbots">
+                  <span class="mega-menu-icon"><i class="fa-solid fa-comment-dots"></i></span>
+                  <span class="mega-menu-text">
+                    <strong>Custom AI Chatbots</strong>
+                    <span>Trained on your data, handling support around the clock.</span>
+                  </span>
+                </a>
+                <a class="mega-menu-item" href="solutions.html#agents">
+                  <span class="mega-menu-icon"><i class="fa-solid fa-diagram-project"></i></span>
+                  <span class="mega-menu-text">
+                    <strong>Intelligent Workflow Agents</strong>
+                    <span>Automates the multi-step busywork behind the scenes.</span>
+                  </span>
+                </a>
+                <a class="mega-menu-item" href="solutions.html#analysis">
+                  <span class="mega-menu-icon"><i class="fa-solid fa-chart-line"></i></span>
+                  <span class="mega-menu-text">
+                    <strong>Market & Operational Analytics</strong>
+                    <span>Turns raw data into reports you can act on.</span>
+                  </span>
+                </a>
+                <a class="mega-menu-item" href="solutions.html#security">
+                  <span class="mega-menu-icon"><i class="fa-solid fa-shield-halved"></i></span>
+                  <span class="mega-menu-text">
+                    <strong>Trust & Security</strong>
+                    <span>Isolated deployments, audit logs, and compliance.</span>
+                  </span>
+                </a>
+              </div>
+              <div class="mega-menu-footer">
+                <a href="solutions.html" class="mega-menu-cta">View all solutions →</a>
+              </div>
+            </div>
+          </div>
+          <a href="about.html" class="active">About Us</a>
+        </nav>
+        <a href="contact.html" class="btn-primary">Book a call</a>
+      </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="fluid-bg">
+                <div class="interactive-blob" id="cursorBlob"></div>
+                <div class="static-blob blob-1"></div>
+                <div class="static-blob blob-2"></div>
+            </div>
+            <div class="noise-overlay"></div>
+
+            <div class="hero-content">
+                <h1>We engineer<br>intelligent<br>workflows</h1>
+            </div>
+            <div class="hero-footer">
+                <div class="footer-col">
+                    <p>[ A CLINICAL AI ]<br>AGENCY</p>
+                </div>
+                <div class="footer-col">
+                    <p>We collaborate as a collective of clinicians and engineers bringing specialized expertise to project and, together, create automation pipelines that transform healthcare operations.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="team-section" id="team">
+            <div class="video-background">
+                <video autoplay loop muted playsinline>
+                    <source src="images/pix4.mp4" type="video/mp4">
+                </video>
+                <div class="video-overlay"></div>
+            </div>
+
+            <div class="team-sidebar">
+                <div class="sticky-content">
+                    <h2>&rarr; Meet our<br>founders</h2>
+                </div>
+            </div>
+
+           <div class="team-grid">
+                
+                <div class="team-card" data-founder="aazad">
+                    <div class="card-image">
+                        <img src="images/abb.png" alt="Aazad Abbas">
+                    </div>
+                    <div class="card-preview">
+                        <h3>AAZAD ABBAS, MD</h3>
+                        <p class="role">+ TECHNICAL ARCHITECT</p>
+                        <div class="view-profile-btn">View Profile <span>&#8594;</span></div>
+                    </div>
+                </div>
+
+                <div class="team-card" data-founder="robert">
+                    <div class="card-image">
+                        <img src="images/r1.png" alt="Robert Koucheki">
+                    </div>
+                    <div class="card-preview">
+                        <h3>ROBERT KOUCHEKI, MD</h3>
+                        <p class="role">+ SYSTEMS ARCHITECT</p>
+                        <div class="view-profile-btn">View Profile <span>&#8594;</span></div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <div class="modal-overlay" id="founderModal">
+        <div class="modal-container">
+            <button class="modal-close" id="closeModal">&times;</button>
+            <div class="modal-content" id="modalContent">
+                </div>
+        </div>
+    </div>
+
+
+
+
+    <script src="about.js"></script>
+</body>
+</html>

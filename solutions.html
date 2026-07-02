@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products & Solutions | Raka Solutions</title>
+    <link rel="stylesheet" href="solutions.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="mesh-bg"></div>
+    <canvas id="bg-canvas"></canvas>
+    <div class="grain"></div>
+
+    <header class="navbar" id="navbar">
+      <div class="nav-container">
+        <a href="home.html" class="logo">Raka<span>Solutions</span></a>
+        <nav class="nav-links">
+          <a href="home.html">Homepage</a>
+          <a href="publications.html">Publications</a>
+          <div class="nav-item">
+            <a href="solutions.html" class="active">Solutions</a>
+            <div class="mega-menu">
+              <div class="mega-menu-grid">
+                <a class="mega-menu-item" href="#chatbots">
+                  <span class="mega-menu-icon"><i class="fa-solid fa-comment-dots"></i></span>
+                  <span class="mega-menu-text">
+                    <strong>Custom AI Chatbots</strong>
+                    <span>Trained on your data, handling support around the clock.</span>
+                  </span>
+                </a>
+                <a class="mega-menu-item" href="#agents">
+                  <span class="mega-menu-icon"><i class="fa-solid fa-diagram-project"></i></span>
+                  <span class="mega-menu-text">
+                    <strong>Intelligent Workflow Agents</strong>
+                    <span>Automates the multi-step busywork behind the scenes.</span>
+                  </span>
+                </a>
+                <a class="mega-menu-item" href="#analysis">
+                  <span class="mega-menu-icon"><i class="fa-solid fa-chart-line"></i></span>
+                  <span class="mega-menu-text">
+                    <strong>Market & Operational Analytics</strong>
+                    <span>Turns raw data into reports you can act on.</span>
+                  </span>
+                </a>
+                <a class="mega-menu-item" href="#security">
+                  <span class="mega-menu-icon"><i class="fa-solid fa-shield-halved"></i></span>
+                  <span class="mega-menu-text">
+                    <strong>Trust & Security</strong>
+                    <span>Isolated deployments, audit logs, and compliance.</span>
+                  </span>
+                </a>
+              </div>
+              <div class="mega-menu-footer">
+                <a href="solutions.html" class="mega-menu-cta">View all solutions →</a>
+              </div>
+            </div>
+          </div>
+          <a href="about.html">About Us</a>
+        </nav>
+        <a href="contact.html" class="btn-primary">Book a call</a>
+      </div>
+    </header>
+
+    <header class="hero">
+        <div class="hero-glow"></div>
+        <div class="hero-content scroll-fade">
+            <span class="hero-eyebrow"><span class="dot"></span>Built for small & growing teams</span>
+            <h1>Intelligent Solutions for Scale</h1>
+            <p>Empowering small startups with data-driven AI architectures.</p>
+        </div>
+    </header>
+
+    <section class="solution-section" id="chatbots">
+        <div class="container auto-grid">
+            <div class="text-content scroll-fade">
+                <span class="section-eyebrow"><span class="idx">01</span> Conversational AI</span>
+                <h2>Custom AI Chatbots</h2>
+                <p>Trained securely on your proprietary data. We build conversational agents that understand your unique business context, reducing support overhead and driving engagement.</p>
+            </div>
+            <div class="visual-card glass scroll-fade">
+                <div class="mock-chat">
+                    <div class="mock-chat-bar">
+                        <span class="mock-dot red"></span>
+                        <span class="mock-dot yellow"></span>
+                        <span class="mock-dot green"></span>
+                        <span>raka-agent · production</span>
+                    </div>
+                    <div class="chat-bubble bot"><span class="agent-label">Raka Agent</span>How can I help you analyze your user retention today?</div>
+                    <div class="chat-bubble user">Show me the drop-off in Q3.</div>
+                    <div class="typing-row"><span></span><span></span><span></span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="solution-section alt-bg" id="agents">
+        <div class="container auto-grid reverse">
+            <div class="visual-card glass scroll-fade">
+                <div class="node-network">
+                    <div class="node"><i class="fa-solid fa-bolt"></i><span class="node-label">Trigger</span></div>
+                    <div class="line"></div>
+                    <div class="node active"><i class="fa-solid fa-gears"></i><span class="node-label">Process</span></div>
+                    <div class="line"></div>
+                    <div class="node"><i class="fa-solid fa-check"></i><span class="node-label">Action</span></div>
+                </div>
+            </div>
+            <div class="text-content scroll-fade">
+                <span class="section-eyebrow"><span class="idx">02</span> Automation</span>
+                <h2>Intelligent Workflow Agents</h2>
+                <p>Automate the mundane. Our intelligent agents seamlessly integrate into your pipeline, triggering actions, formatting data, and making autonomous micro-decisions.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="solution-section" id="analysis">
+        <div class="container">
+            <div class="text-content text-center scroll-fade" style="margin-bottom: 3rem;">
+                <span class="section-eyebrow" style="justify-content: center; width: 100%;"><span class="idx">03</span> Predictive Analytics</span>
+                <h2>Advanced Analysis & Markov Chains</h2>
+                <p>Predict user state transitions and forecast trends with mathematical precision.</p>
+            </div>
+
+            <div class="chart-container glass scroll-fade">
+                <span class="chart-badge"><span class="dot"></span>Live model · 94% accuracy</span>
+                <svg viewBox="0 0 800 300" preserveAspectRatio="none" class="animated-chart">
+                    <line x1="0" y1="250" x2="800" y2="250" stroke="rgba(255,255,255,0.1)" />
+                    <line x1="0" y1="150" x2="800" y2="150" stroke="rgba(255,255,255,0.1)" />
+                    <line x1="0" y1="50" x2="800" y2="50" stroke="rgba(255,255,255,0.1)" />
+
+                    <path d="M 0 250 C 150 240, 250 180, 400 120 C 550 60, 650 90, 800 20"
+                          fill="none"
+                          stroke="#3B82F6"
+                          stroke-width="4"
+                          id="markov-line" />
+
+                    <path d="M 0 250 C 150 240, 250 180, 400 120 C 550 60, 650 90, 800 20 L 800 300 L 0 300 Z"
+                          fill="url(#chart-gradient)"
+                          class="chart-fill" />
+
+                    <circle cx="800" cy="20" r="6" fill="#60A5FA" class="chart-endpoint" />
+
+                    <defs>
+                        <linearGradient id="chart-gradient" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="rgba(59, 130, 246, 0.4)" />
+                            <stop offset="100%" stop-color="rgba(59, 130, 246, 0.0)" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <div class="chart-axis-labels">
+                    <span>Day 0</span>
+                    <span>Day 10</span>
+                    <span>Day 20</span>
+                    <span>Day 30</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="solution-section alt-bg" id="security">
+        <div class="container auto-grid">
+            <div class="text-content scroll-fade">
+                <span class="section-eyebrow"><span class="idx">04</span> Trust &amp; Security</span>
+                <h2>Trust & Security First</h2>
+                <p>Enterprise-grade encryption, SOC2 compliance standards, and local deployment options ensure your proprietary data never leaves your control.</p>
+            </div>
+            <div class="visual-card glass scroll-fade flex-center" style="flex-direction: column; gap: 1.5rem;">
+                <div class="shield-badge"><i class="fa-solid fa-shield-halved"></i></div>
+                <div class="compliance-row">
+                    <span class="compliance-chip">SOC 2 Type II</span>
+                    <span class="compliance-chip">ISO 27001</span>
+                    <span class="compliance-chip">GDPR Compliant</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section glass" id="contact">
+        <div class="container text-center scroll-fade">
+            <span class="section-eyebrow" style="justify-content: center; width: 100%;"><span class="idx">05</span> Get started</span>
+            <h2>Ready to transform your startup?</h2>
+            <p>Let's discuss how Raka Solutions can implement these tools for your team.</p>
+            <form class="contact-form">
+                <input type="email" placeholder="Enter your work email" required>
+                <button type="submit" class="btn-primary">Book Consultation</button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="footer-row">
+        <span class="logo">Raka<span>Solutions</span></span>
+        <span>Custom AI for businesses that move fast.</span>
+        <span>&copy; 2026 Raka Solutions</span>
+      </div>
+    </footer>
+
+    <script src="solutions.js"></script>
+</body>
+</html>

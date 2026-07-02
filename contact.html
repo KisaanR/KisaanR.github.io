@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Raka Solutions</title>
+    <link rel="stylesheet" href="contact.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+    <div class="mesh-bg"></div>
+    <canvas id="bg-canvas"></canvas>
+    <div class="grain"></div>
+
+    <header class="navbar" id="navbar">
+      <div class="nav-container">
+        <a href="home.html" class="logo">Raka<span>Solutions</span></a>
+        <nav class="nav-links">
+          <a href="home.html">Homepage</a>
+          <a href="publications.html">Publications</a>
+          <div class="nav-item">
+            <a href="solutions.html">Solutions</a>
+            <div class="mega-menu">
+              <div class="mega-menu-grid">
+                <a class="mega-menu-item" href="solutions.html#chatbots">
+                  <span class="mega-menu-icon"><i class="fa-solid fa-comment-dots"></i></span>
+                  <span class="mega-menu-text">
+                    <strong>Custom AI Chatbots</strong>
+                    <span>Trained on your data, handling support around the clock.</span>
+                  </span>
+                </a>
+                <a class="mega-menu-item" href="solutions.html#agents">
+                  <span class="mega-menu-icon"><i class="fa-solid fa-diagram-project"></i></span>
+                  <span class="mega-menu-text">
+                    <strong>Intelligent Workflow Agents</strong>
+                    <span>Automates the multi-step busywork behind the scenes.</span>
+                  </span>
+                </a>
+                <a class="mega-menu-item" href="solutions.html#analysis">
+                  <span class="mega-menu-icon"><i class="fa-solid fa-chart-line"></i></span>
+                  <span class="mega-menu-text">
+                    <strong>Market & Operational Analytics</strong>
+                    <span>Turns raw data into reports you can act on.</span>
+                  </span>
+                </a>
+                <a class="mega-menu-item" href="solutions.html#security">
+                  <span class="mega-menu-icon"><i class="fa-solid fa-shield-halved"></i></span>
+                  <span class="mega-menu-text">
+                    <strong>Trust & Security</strong>
+                    <span>Isolated deployments, audit logs, and compliance.</span>
+                  </span>
+                </a>
+              </div>
+              <div class="mega-menu-footer">
+                <a href="solutions.html" class="mega-menu-cta">View all solutions →</a>
+              </div>
+            </div>
+          </div>
+          <a href="about.html">About Us</a>
+        </nav>
+        <a href="contact.html" class="btn-primary">Book a call</a>
+      </div>
+    </header>
+
+    <section class="contact-hero">
+        <div class="container contact-grid">
+
+            <div class="contact-info scroll-fade">
+                <span class="hero-eyebrow"><span class="dot"></span>We're here to help</span>
+                <h1>Contact Us</h1>
+                <p class="lead">Email, call, or complete the form to learn how Raka Solutions can solve your automation problem.</p>
+
+                <div class="contact-direct">
+                    <a href="mailto:info@rakasolutions.io"><i class="fa-solid fa-envelope"></i>info@rakasolutions.io</a>
+                    <a href="tel:+13212212310"><i class="fa-solid fa-phone"></i>321-221-231</a>
+                </div>
+
+                <div class="contact-columns">
+                    <div class="contact-col">
+                        <h3>Customer Support</h3>
+                        <p>Our support team is available around the clock to address any concerns or queries you may have.</p>
+                    </div>
+                    <div class="contact-col">
+                        <h3>Feedback & Suggestions</h3>
+                        <p>We value your feedback and are continuously working to improve Raka. Your input is crucial in shaping the future of our platform.</p>
+                    </div>
+                  
+                </div>
+            </div>
+
+            <div class="contact-form-card glass scroll-fade">
+                <h2>Get in Touch</h2>
+                <p class="form-sub">You can reach us anytime</p>
+
+                <form class="contact-form-fields" id="contact-form">
+                    <div class="form-row">
+                        <input type="text" id="first-name" placeholder="First name" required>
+                        <input type="text" id="last-name" placeholder="Last name" required>
+                    </div>
+                    <div class="form-field">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="email" id="email" placeholder="Your email" required>
+                    </div>
+                    <div class="form-row phone-row">
+                        <select class="country-code" id="country-code">
+                            <option>+1</option>
+                            <option>+44</option>
+                            <option>+91</option>
+                        </select>
+                        <input type="tel" id="phone" placeholder="Phone number">
+                    </div>
+                    <textarea id="message" placeholder="How can we help?" rows="4"></textarea>
+                    <button type="submit" class="btn-primary btn-block" id="submit-btn">Submit</button>
+                    <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+                    <p class="form-legal">By contacting us, you agree to our <a href="#">Terms of service</a> and <a href="#">Privacy Policy</a>.</p>
+                </form>
+            </div>
+
+        </div>
+    </section>
+
+
+    <footer class="site-footer">
+      <div class="footer-row">
+        <span class="logo">Raka<span>Solutions</span></span>
+        <span>Custom AI for businesses that move fast.</span>
+        <span>&copy; 2026 Raka Solutions</span>
+      </div>
+    </footer>
+
+    <script src="contact.js"></script>
+</body>
+</html>
