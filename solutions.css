@@ -587,25 +587,14 @@ body {
 
 /* Contact Form */
 .cta-section {
-    margin: 4rem auto 8rem;
+    margin: 4rem auto 3rem;
     max-width: 800px;
     padding: 4rem 2rem;
 }
 
-.contact-form {
+.cta-button {
+    display: inline-block;
     margin-top: 2rem;
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-}
-
-.contact-form input {
-    padding: 1rem;
-    border-radius: 8px;
-    border: 1px solid rgba(255,255,255,0.2);
-    background: rgba(0,0,0,0.2);
-    color: white;
-    width: 300px;
 }
 
 /* Chart card enhancements */
@@ -732,6 +721,5 @@ body {
     .auto-grid { grid-template-columns: 1fr; }
     .reverse .visual-card { order: 2; }
     .hero h1 { font-size: 2.5rem; }
-    .contact-form { flex-direction: column; align-items: center; }
     .footer-row { flex-direction: column; gap: 0.75rem; text-align: center; }
 }
