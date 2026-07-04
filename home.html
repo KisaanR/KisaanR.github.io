@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Raka Solutions | AI Built for Your Business</title>
+<meta name="description" content="Raka Solutions builds custom AI chatbots, intelligent workflow agents, and market analysis tools for healthcare businesses, trained on your data and deployed in your workflow.">
 
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://kisaanr.github.io/home.html">
@@ -31,50 +32,6 @@
     --text-white: #f8fafc;
     --text-dim: #94a3b8;
   }
-.hero-image-wrapper {
-  /* Structure */
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 40px;
-  padding: 3.5rem 4rem;
-  position: relative;
-  isolation: isolate;      /* keeps the ::before background layer contained */
-  overflow: hidden;        /* clips the oversized blurred background to the rounded corners */
-
-  /* THIS IS THE FIX */
-  width: 100%;             /* Use 100% of the parent container */
-  max-width: 100%;         /* Ensure it never exceeds the parent */
-  box-sizing: border-box;  /* CRITICAL: Includes padding in the width calculation */
-
-  /* Remove the margin hacks */
-  margin: 0;
-
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-}
-
-/* Background lives on an oversized pseudo-element so the blur never samples
-   transparent edge pixels (which is what caused the white seam lines) -
-   the parent's overflow:hidden + border-radius then clips it cleanly. */
-.hero-image-wrapper::before {
-  content: "";
-  position: absolute;
-  inset: -30px;
-  background-image: linear-gradient(rgba(6, 10, 19, 0.7), rgba(6, 10, 19, 0.7)),
-                    url('images/monte.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  filter: blur(0px);
-  z-index: -1;
-}
-
-/* Optional: If you want to insert an image inside that box later, 
-   add an <img> tag with this class inside the wrapper */
-.hero-box-img {
-  width: 100%;
-  border-radius: 24px;
-  margin-top: 2rem;
-  display: block;
-}
   body {
     background-color: var(--navy-deep);
     color: var(--text-white);
@@ -86,7 +43,7 @@
   /* Fixed Global Navigation Integration */
   .navbar {
     position: fixed;
-    top: 32px; left: 0; width: 100%;
+    top: 0px; left: 0; width: 100%;
     z-index: 1000;
     background: rgba(6, 10, 19, 0.75);
     backdrop-filter: blur(16px);
@@ -246,10 +203,10 @@
 
   /* --- FLUID SPLIT HERO SECTION --- */
   .aura-hero {
-    min-height: 100vh;
+    min-height: 92vh;
     display: flex;
     align-items: center;
-    padding: 160px 2rem 6rem;
+    padding: 110px 2rem 6rem;
     max-width: 1400px;
     margin: 0 auto;
     position: relative;
@@ -520,6 +477,20 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+  }
+
+  .card-icon-badge {
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    color: var(--text-white);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 14px;
+    margin-bottom: 1.2rem;
   }
 
   .card-graphics-context {
@@ -1183,9 +1154,7 @@
 </head>
 <body>
 
-<div class="system-status-ribbon">
-  ⚡ Infrastructure update: Custom operational data models optimized for high-throughput business deployments
-</div>
+
 
 <div class="mesh-bg"></div>
 <canvas id="bg-canvas"></canvas>
@@ -1244,20 +1213,16 @@
 
 <!-- ===== HERO: AURA INDUSTRIAL COMPOSITE LAYOUT ===== -->
 <section class="aura-hero">
-  <!-- FIX: Merged hero-image-wrapper and aura-hero-grid so the grid acts as the wrapper box -->
-  <div class="hero-image-wrapper aura-hero-grid">
+  <div class="aura-hero-grid">
     <div class="hero-copy">
-      <span class="badge"><span class="badge-dot"></span>Serving 80+ businesses globally</span>
       <h1>AI-driven efficiency<br>
-        <span class="typewriter-wrap">
-          <span id="typed-text"></span><span class="cursor">|</span>
-        </span>
-      </h1>      
+        <span class="typewriter-wrap">built for your business.</span>
+      </h1>
       <p class="hero-sub">We build custom AI chatbots, intelligent agents, and market analysis tools for small and medium businesses — trained on your data, deployed in your workflow.</p>
       
       <div class="hero-actions">
-        <a href="#contact" class="btn-primary">Get started free</a>
-        <a href="#demo" class="btn-ghost">See a live demo →</a>
+        <a href="contact.html" class="btn-primary">Get started free</a>
+        <a href="solutions.html" class="btn-ghost">See our solution →</a>
       </div>
       
       <div class="hero-proof">
@@ -1282,13 +1247,13 @@
           <span class="console-dot red"></span>
           <span class="console-dot yellow"></span>
           <span class="console-dot green"></span>
-          <span class="console-window-title">raka-agent · production</span>
+          <span class="console-window-title">raka-agent · patient-ops</span>
         </div>
         <div class="console-chat-log">
-          <div class="console-msg console-msg-user">How many support tickets came in this week, and what's still open?</div>
+          <div class="console-msg console-msg-user">How many patient intake forms came in this week, and what's still pending review?</div>
           <div class="console-msg console-msg-agent">
             <span class="console-agent-label">Raka Agent</span>
-            Logged 214 tickets across your inbox and chat widget. 12 flagged for manual review, the rest resolved automatically.
+            Logged 214 intake forms across your portal and clinic fax line. 12 flagged for clinician review, the rest auto-triaged.
           </div>
           <div class="console-typing-row"><span></span><span></span><span></span></div>
         </div>
@@ -1299,16 +1264,16 @@
           </div>
           <div class="console-metric">
             <span class="console-metric-val">4m 12s</span>
-            <span class="console-metric-label">Avg. resolution</span>
+            <span class="console-metric-label">Avg. triage time</span>
           </div>
           <div class="console-metric">
             <span class="console-metric-val">0</span>
-            <span class="console-metric-label">Data leaks</span>
+            <span class="console-metric-label">PHI leaks</span>
           </div>
         </div>
       </div>
 
-      <div class="console-tag-float"><i class="fa-solid fa-database"></i> Trained on your data only</div>
+      <div class="console-tag-float"><i class="fa-solid fa-database"></i> HIPAA-safe, trained on your data only</div>
     </div>
   </div>
 </section>
@@ -1327,9 +1292,9 @@
         <p style="color: var(--text-dim); font-size: 1.05rem; line-height: 1.5; max-width: 400px;">We engineer, deploy, and support isolated model networks directly across your operational ecosystem segments.</p>
         
         <div class="aura-tab-list">
-          <button class="tab-trigger-node tab-node-link active" onclick="document.getElementById('card-chatbots').scrollIntoView({behavior: 'smooth', block: 'center'})">Custom AI Chatbots</button>
-          <button class="tab-trigger-node tab-node-link" onclick="document.getElementById('card-agents').scrollIntoView({behavior: 'smooth', block: 'center'})">Intelligent Agents</button>
-          <button class="tab-trigger-node tab-node-link" onclick="document.getElementById('card-analytics').scrollIntoView({behavior: 'smooth', block: 'center'})">Market & Operational Analytics</button>
+          <button class="tab-trigger-node tab-node-link active" data-target="card-chatbots" onclick="document.getElementById('card-chatbots').scrollIntoView({behavior: 'smooth', block: 'center'})">Custom AI Chatbots</button>
+          <button class="tab-trigger-node tab-node-link" data-target="card-agents" onclick="document.getElementById('card-agents').scrollIntoView({behavior: 'smooth', block: 'center'})">Intelligent Agents</button>
+          <button class="tab-trigger-node tab-node-link" data-target="card-analytics" onclick="document.getElementById('card-analytics').scrollIntoView({behavior: 'smooth', block: 'center'})">Market & Operational Analytics</button>
         </div>
       </div>
 
@@ -1339,7 +1304,7 @@
         <!-- Card Frame 1: Chatbots -->
         <div class="premium-asymmetric-card" id="card-chatbots">
           <div class="card-narrative-context">
-            <div style="font-size: 2.2rem; margin-bottom: 1.2rem;">💬</div>
+            <div class="card-icon-badge"><i class="fa-solid fa-comment-dots"></i></div>
             <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem;">Custom AI Chatbots</h3>
             <p style="color: var(--text-dim); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem;">Trained on your files, your product docs, and your past support conversations, so it actually knows your business. Handles the repetitive questions, hands off the tricky ones to your team.</p>
             <ul class="svc-tags" style="display: flex; flex-wrap: wrap; gap: 0.5rem; list-style: none; padding: 0;">
@@ -1361,7 +1326,7 @@
         <!-- Card Frame 2: Workflow Agents -->
         <div class="premium-asymmetric-card" id="card-agents">
           <div class="card-narrative-context">
-            <div style="font-size: 2.2rem; margin-bottom: 1.2rem;">🤖</div>
+            <div class="card-icon-badge"><i class="fa-solid fa-diagram-project"></i></div>
             <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem;">Intelligent Workflow Agents</h3>
             <p style="color: var(--text-dim); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem;">Agents that handle the multi-step busywork behind the scenes: pulling data together, watching for changes on your sites, and putting documents together so your team doesn't have to.</p>
           </div>
@@ -1379,7 +1344,7 @@
         <!-- Card Frame 3: System Analytics -->
         <div class="premium-asymmetric-card" id="card-analytics">
           <div class="card-narrative-context">
-            <div style="font-size: 2.2rem; margin-bottom: 1.2rem;">📊</div>
+            <div class="card-icon-badge"><i class="fa-solid fa-chart-line"></i></div>
             <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem;">Market & Clinical Analytics</h3>
             <p style="color: var(--text-dim); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem;">We turn your raw operational and clinical data into something you can actually read and act on, built to the compliance standards your field requires.</p>
           </div>
@@ -1549,19 +1514,8 @@
 <section id="about" class="team-section">
   <div class="team-container">
     <div class="team-grid">
-      
-      <div class="team-card profile-card">
-        <div class="profile-image-wrapper">
-          <img src="images/azad.png" alt="Alexey Karankevich">
-        </div>
-        <div class="profile-content">
-          <h3>Azad Abbas</h3>
-          <p class="profile-role">Co-Founder & Operations Strategy Lead</p>
-          <p class="profile-bio">A systems engineering specialist with deep expertise in distributed architectures and custom language model deployments. Azad leads Raka's development framework, engineering high-throughput automation pipelines and secure data structures that allow large-scale businesses to run proprietary AI smoothly and safely inside their own private environments.</p>
-        </div>
-      </div>
 
-      <div class="team-card profile-card">
+        <div class="team-card profile-card">
         <div class="profile-image-wrapper">
           <img src="images/robert.png" alt="Yariv Z. Levy">
         </div>
@@ -1572,6 +1526,19 @@
         </div>
       </div>
 
+      
+      <div class="team-card profile-card">
+        <div class="profile-image-wrapper">
+          <img src="images/azad.png" alt="Alexey Karankevich">
+        </div>
+        <div class="profile-content">
+          <h3>Aazad Abbas</h3>
+          <p class="profile-role">Co-Founder & Operations Strategy Lead</p>
+          <p class="profile-bio">A systems engineering specialist with deep expertise in distributed architectures and custom language model deployments. Aazad leads Raka's development framework, engineering high-throughput automation pipelines and secure data structures that allow large-scale businesses to run proprietary AI smoothly and safely inside their own private environments.</p>
+        </div>
+      </div>
+
+    
       <div class="team-card cta-gradient-card">
         <div class="gradient-bg-blur"></div>
         <div class="gradient-card-content">
@@ -1599,29 +1566,16 @@
       <span class="eyebrow">Get started</span>
       <h2>Tell us what you're trying to automate</h2>
       <p>We'll scope it, price it, and have a prototype in front of you within 5 days.</p>
-      <a href="#" class="btn-primary btn-lg">Book a free scoping call</a>
+      <a href="contact.html" class="btn-primary btn-lg">Book a free scoping call</a>
       <p class="cta-note">No commitment. No deck. Just a conversation.</p>
     </div>
   </div>
 </section>
 
-<!-- ===== INFINITE RUNNING TEXT RIBBON ===== -->
-<div class="infinite-text-strip" aria-hidden="true">
-  <div class="ticker-track">
-    <span>•  SECURE DATA ISOLATION METRICS</span>
-    <span>•  CLINICAL OPERATIONAL ARCHITECTURES</span>
-    <span>•  ISOLATED DATA ARCHITECTURES</span>
-    <span>•   COMPLIANCE LOGIC SYSTEMS</span>
-    <span>•  SECURE DATA ISOLATION METRICS</span>
-    <span>•  CLINICAL OPERATIONAL ARCHITECTURES</span>
-    <span>•  ISOLATED DATA ARCHITECTURES</span>
-    <span>•  COMPLIANCE LOGIC SYSTEMS</span>
-  </div>
-</div>
 
 <footer class="site-footer">
   <div class="inner footer-row">
-    <span class="logo">Raka<span>Solutions</span></span>
+    <span class="logo"><img src="images/rakalogo-transparent.png" alt="Raka Solutions"></span>
     <span>Custom AI for businesses that move fast.</span>
     <span>© 2026 Raka Solutions</span>
   </div>

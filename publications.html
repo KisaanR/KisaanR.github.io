@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Research Index — Raka Solutions</title>
+  <meta name="description" content="Browse indexed academic publications and research from the Raka Solutions team, searchable by researcher, year, and citation count.">
 
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://kisaanr.github.io/publications.html">
@@ -50,38 +51,48 @@
       position: fixed;
       top: 0; left: 0; width: 100%;
       z-index: 1000;
-      background: rgba(6, 10, 19, 0.75);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 11px 0;
+      background: rgba(6,13,24,0.75);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      transition: background .3s;
     }
+    .navbar.scrolled { background: rgba(6,13,24,0.94); }
     .nav-container {
-      max-width: 1160px; margin: 0 auto; padding: 15px 32px;
+      max-width: 1160px; margin: 0 auto; padding: 0 32px;
       display: flex; align-items: center; justify-content: space-between;
     }
-    .logo { font-size: 21px; font-weight: 700; color: var(--text-primary); text-decoration: none; display: inline-flex; align-items: center; }
-    .logo span { color: var(--border-accent); font-weight: 300; }
+    .logo { font-family: 'Fraunces', serif; font-size: 21px; font-weight: 500; color: #EEF2F8; text-decoration: none; display: inline-flex; align-items: center; }
+    .logo span { color: #00C8F0; font-weight: 300; }
     .logo img { height: 48px; width: auto; display: block; }
     .nav-links a {
       position: relative;
-      color: var(--text-secondary); text-decoration: none; font-size: 14px;
+      color: #7A87A0; text-decoration: none; font-size: 14px;
       font-weight: 500; margin-right: 26px; transition: color .2s;
       padding-bottom: 6px;
     }
-    .nav-links a:hover, .nav-links a.active { color: var(--text-primary); }
+    .nav-links a:hover, .nav-links a.active { color: #EEF2F8; }
     .nav-links a::after {
       content: ''; position: absolute; left: 0; bottom: 0; width: 100%; height: 2px;
-      background: var(--border-accent); border-radius: 2px;
+      background: #00C8F0; border-radius: 2px;
       transform: scaleX(0); transform-origin: left;
       transition: transform .3s cubic-bezier(.16,1,.3,1);
     }
     .nav-links a:hover::after { transform: scaleX(1); }
-    .nav-links a.active::after { transform: scaleX(1); background: var(--text-primary); }
+    .nav-links a.active::after { transform: scaleX(1); background: #EEF2F8; }
     .btn-primary {
-      background: var(--accent-navy); color: #fff; text-decoration: none;
-      padding: 10px 20px; border-radius: 8px; font-size: 14px; font-weight: 600;
-      transition: background .2s;
+      display: inline-block; text-decoration: none; font-weight: 600; font-size: 14px;
+      color: #fff; padding: 11px 22px; border-radius: 8px;
+      background: linear-gradient(135deg, #0A3D7C 0%, #1253B5 100%);
+      border: 1px solid rgba(0,200,240,0.4);
+      box-shadow: 0 0 24px rgba(0,200,240,0.12);
+      transition: all .28s cubic-bezier(.16,1,.3,1);
     }
-    .btn-primary:hover { background: #0369a1; }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(0,200,240,0.28);
+      background: linear-gradient(135deg,#1253B5 0%,#1768D8 100%);
+    }
     @media (max-width: 768px) { .nav-links { display: none; } }
 
     /* --- SOLUTIONS MEGA MENU --- */
@@ -229,7 +240,7 @@
       margin-bottom: 3rem;
       gap: 2rem;
     }
-    .view-title h2 {
+    .view-title h1 {
       font-size: 2rem;
       font-weight: 800;
       letter-spacing: -0.03em;
@@ -486,6 +497,24 @@
       .app-workspace { padding: 110px 1.5rem 1.5rem; }
       .bridge-main-line { flex-direction: column; align-items: stretch; }
     }
+
+    /* ===== FOOTER ===== */
+    .site-footer { padding: 26px 0 48px; }
+    .footer-row {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 26px 32px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      font-size: 12.5px;
+      color: var(--text-secondary);
+    }
+    .footer-row .logo { font-size: 15px; }
+    @media (max-width: 640px) {
+      .footer-row { flex-direction: column; gap: 0.75rem; text-align: center; }
+    }
   </style>
 </head>
 <body>
@@ -494,7 +523,7 @@
     <div class="nav-container">
       <a href="home.html" class="logo"><img src="images/rakalogo-transparent.png" alt="Raka Solutions"></a>
       <nav class="nav-links">
-        <a href="home.html">Home</a>
+        <a href="home.html">Homepage</a>
         <a href="publications.html" class="active">Publications</a>
         <div class="nav-item">
           <a href="solutions.html">Solutions</a>
@@ -544,7 +573,7 @@
 
     <header class="workspace-header">
       <div class="view-title">
-        <h2>Research Portfolio</h2>
+        <h1>Research Portfolio</h1>
         <p>Operational data mapping for indexed global academic publications.</p>
       </div>
       <div class="status-panel-grid">
@@ -569,36 +598,36 @@
       <div class="bridge-main-line">
         <div class="search-input-wrapper">
           <i class="fa-solid fa-terminal"></i>
-          <input type="search" id="search" placeholder="Query system database metrics..." autocomplete="off" />
+          <input type="search" id="search" placeholder="Search publications..." autocomplete="off" />
         </div>
 
         <div class="bridge-actions">
           <div class="select-dropdown-container">
             <button class="dropdown-trigger" id="year-trigger">
-              <span id="year-label">Timeline Parameters</span>
+              <span id="year-label">Filter by Year</span>
               <i class="fa-solid fa-chevron-down"></i>
             </button>
             <div class="dropdown-flyout-list" id="year-panel"></div>
           </div>
 
           <div class="channel-pills">
-            <button class="pill-node active" data-filter="all">All Logs</button>
+            <button class="pill-node active" data-filter="all">All</button>
             <button class="pill-node" data-filter="cited">Highly Cited</button>
-            <button class="pill-node" data-filter="recent">Modern Tier</button>
+            <button class="pill-node" data-filter="recent">Recent</button>
           </div>
 
           <div class="sorting-wrapper">
             <select id="sort">
-              <option value="cites">Citations (High-Low)</option>
-              <option value="date">Temporal Sequences</option>
-              <option value="alpha">Alphanumeric (A-Z)</option>
+              <option value="cites">Most Cited</option>
+              <option value="date">Newest First</option>
+              <option value="alpha">Title (A-Z)</option>
             </select>
           </div>
         </div>
       </div>
 
       <div class="bridge-personnel-line">
-        <span class="flow-label">Filter Pipeline:</span>
+        <span class="flow-label">Researcher:</span>
         <div id="researcher-row" style="display: flex; gap: 0.5rem; overflow-x: auto; width: 100%;"></div>
       </div>
     </section>
@@ -609,7 +638,22 @@
 
   </main>
 
+  <footer class="site-footer">
+    <div class="footer-row">
+      <span class="logo"><img src="images/rakalogo-transparent.png" alt="Raka Solutions"></span>
+      <span>Custom AI for businesses that move fast.</span>
+      <span>&copy; 2026 Raka Solutions</span>
+    </div>
+  </footer>
+
   <script>
+  const navbar = document.getElementById('navbar');
+  if (navbar) {
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+  }
+
   const SUPABASE_URL = 'https://zbhuljurcvwrhaorxusc.supabase.co';
   const SUPABASE_KEY = 'sb_publishable_Usk6ADOtzJNAnbDkiPll8w_pzknKhj_';
 
@@ -645,18 +689,27 @@
 
   function renderSpotlight() {
     const el = document.getElementById('spotlight');
-    const latest = allPapers.find(p => p.year >= 2016);
-    spotlightPaper = latest || null;
-    if (!latest) { el.style.display = 'none'; return; }
+    const koucheki = allPapers.filter(p => (p.researcher || '').toLowerCase().includes('koucheki'));
+    const spotlight = koucheki.length
+      ? koucheki.reduce((best, p) => (p.citations || 0) > (best.citations || 0) ? p : best)
+      : null;
+    spotlightPaper = spotlight || null;
+    if (!spotlight) { el.style.display = 'none'; return; }
     el.style.display = 'block';
     el.innerHTML = `
-      <div class="spotlight-eyebrow"><i class="fa-solid fa-bolt"></i> Latest Publication</div>
-      ${cardHTML(latest)}
+      <div class="spotlight-eyebrow"><i class="fa-solid fa-bolt"></i> Spotlight Article</div>
+      ${cardHTML(spotlight)}
     `;
   }
 
   function getUniqueResearchers() {
-    return [...new Set(allPapers.map(p => p.researcher).filter(Boolean))].sort();
+    const names = [...new Set(allPapers.map(p => p.researcher).filter(Boolean))];
+    return names.sort((a, b) => {
+      const aFirst = a.toLowerCase().includes('koucheki');
+      const bFirst = b.toLowerCase().includes('koucheki');
+      if (aFirst !== bFirst) return aFirst ? -1 : 1;
+      return a.localeCompare(b);
+    });
   }
 
   function buildResearchers() {
@@ -664,7 +717,7 @@
     row.innerHTML = '';
     
     const validModernCount = allPapers.filter(p => p.year >= 2016).length;
-    const allChip = mkRChip('', 'Global Logs', validModernCount, true);
+    const allChip = mkRChip('', 'All Researchers', validModernCount, true);
     allChip.addEventListener('click', () => setResearcher(null, allChip));
     row.appendChild(allChip);
 
@@ -693,7 +746,7 @@
     activeYear = null;
     document.querySelectorAll('.personnel-tag').forEach(c => c.classList.remove('active'));
     chip.classList.add('active');
-    document.getElementById('year-label').textContent = 'Timeline Parameters';
+    document.getElementById('year-label').textContent = 'Filter by Year';
     yearTrigger.classList.remove('active');
     buildYearPanel();
     render();
@@ -717,7 +770,7 @@
     allOpt.addEventListener('click', e => {
       e.stopPropagation();
       activeYear = null;
-      document.getElementById('year-label').textContent = 'Timeline Parameters';
+      document.getElementById('year-label').textContent = 'Filter by Year';
       yearTrigger.classList.remove('active', 'open');
       yearPanel.classList.remove('open');
       buildYearPanel(); render();

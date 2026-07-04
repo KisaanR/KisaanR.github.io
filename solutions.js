@@ -54,6 +54,14 @@
     init(); draw();
 })();
 
+// ===== NAVBAR SCROLL STYLE =====
+const navbar = document.getElementById('navbar');
+if (navbar) {
+    window.addEventListener('scroll', () => {
+        navbar.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     
     // 1. Setup Intersection Observer for scroll animations

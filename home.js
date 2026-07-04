@@ -71,6 +71,21 @@ const observer = new IntersectionObserver(entries => {
 }, { threshold: 0.12 });
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
+// ===== "WHAT WE BUILD" SCROLL SPY =====
+const tabNodes = document.querySelectorAll('.tab-trigger-node');
+const showcaseCards = document.querySelectorAll('.premium-asymmetric-card');
+if (tabNodes.length && showcaseCards.length) {
+  const showcaseObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      tabNodes.forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.target === e.target.id);
+      });
+    });
+  }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
+  showcaseCards.forEach(card => showcaseObs.observe(card));
+}
+
 // ===== COUNTER ANIMATION =====
 const counterObs = new IntersectionObserver(entries => {
   entries.forEach(e => {
@@ -104,28 +119,6 @@ const demoObs = new IntersectionObserver(entries => {
 }, { threshold: 0.3 });
 const demoShell = document.querySelector('.demo-shell');
 if (demoShell) demoObs.observe(demoShell);
-
-// ===== TYPEWRITER =====
-const phrases = [
-  "built for your business.",
-  "trained on your data.",
-  "for doctors from doctors.",
-  "that boosts productivity."
-];
-let pi = 0, ci = 0, del = false;
-const el = document.getElementById('typed-text');
-if (el) {
-  function type() {
-    const ph = phrases[pi];
-    del ? ci-- : ci++;
-    el.textContent = ph.substring(0, ci);
-    let sp = del ? 36 : 72;
-    if (!del && ci === ph.length) { sp = 2000; del = true; }
-    else if (del && ci === 0) { del = false; pi = (pi + 1) % phrases.length; sp = 360; }
-    setTimeout(type, sp);
-  }
-  setTimeout(type, 800);
-}
 
 // ===== SECURITY HORIZONTAL CAROUSEL (CENTERING LOGIC) =====
 document.addEventListener('DOMContentLoaded', () => {

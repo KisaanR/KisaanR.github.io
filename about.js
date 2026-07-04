@@ -65,11 +65,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    let clearContentTimeout = null;
+
     // Open Modal
     document.querySelectorAll('.team-card').forEach(card => {
         card.addEventListener('click', () => {
             const founderKey = card.getAttribute('data-founder');
             const data = founderData[founderKey];
+
+            // Cancel any pending clear from a just-closed modal so it can't
+            // wipe out the content we're about to render.
+            clearTimeout(clearContentTimeout);
 
             // Build the HTML for the modal dynamically
             modalContent.innerHTML = `
@@ -102,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
         modalOverlay.classList.remove('active');
         document.body.style.overflow = 'auto'; // Restore scrolling
         // Clear content after animation ends to reset it
-        setTimeout(() => { modalContent.innerHTML = ''; }, 500);
+        clearContentTimeout = setTimeout(() => { modalContent.innerHTML = ''; }, 500);
     }
 
     closeModalBtn.addEventListener('click', closeTheModal);
