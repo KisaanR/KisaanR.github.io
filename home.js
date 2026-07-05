@@ -120,19 +120,22 @@ const demoObs = new IntersectionObserver(entries => {
 const demoShell = document.querySelector('.demo-shell');
 if (demoShell) demoObs.observe(demoShell);
 
-// ===== SECURITY HORIZONTAL CAROUSEL (CENTERING LOGIC) =====
+// ===== SECURITY HORIZONTAL CAROUSEL (DESKTOP ONLY - CENTERING LOGIC) =====
+// Below 800px the cards stack into a static list via CSS, so the sliding/
+// centering behavior only applies on desktop/tablet-wide viewports.
+const SECURITY_CAROUSEL_MIN_WIDTH = 900;
 document.addEventListener('DOMContentLoaded', () => {
   const track = document.getElementById('securityTrack');
   const prevBtn = document.getElementById('secPrevBtn');
   const nextBtn = document.getElementById('secNextBtn');
   const cards = document.querySelectorAll('.security-slider-card');
   const dotsContainer = document.getElementById('secDotsRow');
-  
+
   if (!track || !cards.length) return; // Guard clause if elements don't exist
 
   // Clear existing dots to prevent duplicates on soft reloads
   dotsContainer.innerHTML = '';
-  
+
   let currentIndex = 0;
 
   // 1. Generate the indicator dots
@@ -141,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
     dot.classList.add('sec-dot');
     dot.setAttribute('aria-label', `Go to slide ${index + 1}`);
     if (index === 0) dot.classList.add('active');
-    
+
     dot.addEventListener('click', () => goToSlide(index));
     dotsContainer.appendChild(dot);
   });
@@ -150,6 +153,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 2. The Master Centering Logic
   function goToSlide(index) {
+    if (window.innerWidth < SECURITY_CAROUSEL_MIN_WIDTH) return; // Mobile/tablet: static stacked list, no sliding
+
     // Loop around
     if (index < 0) index = cards.length - 1;
     if (index >= cards.length) index = 0;
@@ -158,12 +163,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Measure viewport and card
     const viewportCenter = track.parentElement.offsetWidth / 2;
     const activeCard = cards[currentIndex];
-    
+
     // Ensure activeCard actually has geometry before calculating
     if (!activeCard) return;
-    
+
     const cardCenter = activeCard.offsetLeft + (activeCard.offsetWidth / 2);
-    
+
     // Calculate and apply offset
     const translation = viewportCenter - cardCenter;
     track.style.transform = `translateX(${translation}px)`;
@@ -178,13 +183,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const newNext = nextBtn.cloneNode(true);
   prevBtn.parentNode.replaceChild(newPrev, prevBtn);
   nextBtn.parentNode.replaceChild(newNext, nextBtn);
-  
+
   newPrev.addEventListener('click', () => goToSlide(currentIndex - 1));
   newNext.addEventListener('click', () => goToSlide(currentIndex + 1));
-  
+
   // 4. Handle resize
   window.addEventListener('resize', () => goToSlide(currentIndex));
-  
+
   // 5. Initial paint
-  setTimeout(() => goToSlide(0), 100); 
+  setTimeout(() => goToSlide(0), 100);
 });
+

@@ -129,7 +129,8 @@ body {
 .nav-toggle.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 @media (max-width: 900px) {
-    .nav-toggle { display: flex; }
+    .nav-toggle { display: flex; margin-left: 0.75rem; }
+    .nav-container .btn-primary { margin-left: auto; }
     .nav-links {
         display: flex !important;
         flex-direction: column;
@@ -706,5 +707,6 @@ body {
     .team-card:nth-child(2) { margin-top: 0; }
     .modal-split { flex-direction: column; }
     .modal-left { width: 100%; height: 300px; }
+    .modal-left img { object-position: center 15%; }
     .modal-right { width: 100%; padding: 2rem; }
 }
